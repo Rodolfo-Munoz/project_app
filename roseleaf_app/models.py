@@ -76,6 +76,15 @@ class Product(models.Model):
         return self.name
 
 
+class Order(models.Model):
+    user = models.ForeignKey(Member, on_delete=models.CASCADE)
+    date = models.DateTimeField()
+    item = models.ForeignKey(Product, on_delete=models.CASCADE)
+    supplier = models.ForeignKey(Supplier, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return str(self.date)
+
 
 
 
