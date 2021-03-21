@@ -84,10 +84,18 @@ class Product(models.Model):
         return self.name
 
 
+class OrderDetail(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.IntegerField()
+
+    def __str__(self):
+        return str(self.product.name) + ' - ' + str(self.quantity) + ' units'
+
+
 class Order(models.Model):
     user = models.ForeignKey(Member, on_delete=models.CASCADE)
     date = models.DateTimeField()
-    item = models.ManyToManyField('Product')
+    order_detail = models.ManyToManyField('OrderDetail', default=None)
 
     def __str__(self):
         return str(self.date)
