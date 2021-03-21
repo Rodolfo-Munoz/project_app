@@ -9,6 +9,13 @@ class Member(models.Model):
         return self.username
 
 
+class Ingredient(models.Model):
+    name = models.CharField(max_length=30)
+
+    def __str__(self):
+        return self.name
+
+
 class Fridge(models.Model):
     fridge_name = models.CharField(max_length=50)
 
@@ -37,8 +44,9 @@ class Recipe(models.Model):
     name = models.CharField(max_length=50)
     description = models.CharField(max_length=100)
     user = models.ForeignKey(Member, on_delete=models.CASCADE)
-    Ingredients = models.CharField(max_length=200)
+    Ingredients = models.ManyToManyField('Ingredient')
     method = models.CharField(max_length=300)
+    allergens = models.ManyToManyField('Allergen')
 
     def __str__(self):
         return self.name
@@ -79,11 +87,12 @@ class Product(models.Model):
 class Order(models.Model):
     user = models.ForeignKey(Member, on_delete=models.CASCADE)
     date = models.DateTimeField()
-    item = models.ForeignKey(Product, on_delete=models.CASCADE)
-    supplier = models.ForeignKey(Supplier, on_delete=models.CASCADE)
+    item = models.ManyToManyField('Product')
 
     def __str__(self):
         return str(self.date)
+
+
 
 
 
