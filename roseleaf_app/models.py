@@ -10,7 +10,7 @@ class Member(models.Model):
 
 
 class Season(models.Model):
-    name = models.CharField(max_length=20)
+    name = models.CharField(max_length=20, blank=True)
 
     def __str__(self):
         return self.name
@@ -51,6 +51,7 @@ class Recipe(models.Model):
     name = models.CharField(max_length=50)
     description = models.CharField(max_length=100)
     user = models.ForeignKey(Member, on_delete=models.CASCADE)
+    season = models.ForeignKey(Season, on_delete=models.CASCADE, null=True, blank=True)
     Ingredients = models.ManyToManyField('Ingredient')
     method = models.CharField(max_length=300)
     allergens = models.ManyToManyField('Allergen')
