@@ -9,6 +9,13 @@ class Member(models.Model):
         return self.username
 
 
+class Season(models.Model):
+    name = models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.name
+
+
 class Ingredient(models.Model):
     name = models.CharField(max_length=30)
 
