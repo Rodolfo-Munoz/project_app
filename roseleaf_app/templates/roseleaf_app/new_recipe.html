@@ -1,0 +1,87 @@
+{% extends 'roseleaf_app/base.html' %}
+
+{% block content %}
+     <br/>
+    <h3>New Recipe</h3>
+    <br/>
+
+<div class="input-group">
+  <span class="input-group-text">Recipe name</span>
+  <input type="text" aria-label="First name" class="form-control">
+</div>
+<br>
+
+<select class="form-select" aria-label="Default select example">
+  <option selected>Season</option>
+  <option value="1">Summer</option>
+  <option value="2">Autumn</option>
+  <option value="3">Winter</option>
+  <option value="3">Spring</option>
+</select>
+
+    <br>
+
+    <div class="col-md-5">
+              <label for="country" class="form-label"><strong>Ingredients</strong></label>
+              <select class="form-select" id="country" required>
+                <option value="">Choose ingredient</option>
+                <option>Basil</option>
+              </select>
+              <div class="invalid-feedback">
+                Please select a valid ingredient.
+              </div>
+    <div class="input-group">
+  <span class="input-group-text">Quantity</span>
+  <input type="text" aria-label="First name" class="form-control">
+</div>
+            </div>
+
+    <br>
+
+<div class="col-md-5">
+
+              <select class="form-select" id="country" required>
+                <option value="">Choose ingredient</option>
+                <option>Garlic</option>
+              </select>
+              <div class="invalid-feedback">
+                Please select a valid ingredient.
+              </div>
+<div class="input-group">
+  <span class="input-group-text">Quantity</span>
+  <input type="text" aria-label="First name" class="form-control">
+</div>
+            </div>
+
+<br>
+
+<div class="col-md-5">
+
+              <select class="form-select" id="country" required>
+                <option value="">Choose ingredient</option>
+                <option>Tomato</option>
+              </select>
+              <div class="invalid-feedback">
+                Please select a valid ingredient.
+              </div>
+<div class="input-group">
+  <span class="input-group-text">Quantity</span>
+  <input type="text" aria-label="First name" class="form-control">
+
+</div>
+
+            </div>
+<br>
+<button class="btn btn-success" type="button">Add more ingredients</button>
+<br><br>
+<div class="input-group">
+  <span class="input-group-text">Method</span>
+  <textarea class="form-control" aria-label="With textarea"></textarea>
+</div>
+
+
+
+   <hr class="my-4">
+    <button type="button" class="btn btn-primary btn-lg">Save recipe</button>
+<button type="button" class="btn btn-danger btn-lg">Cancel</button>
+{% endblock %}

@@ -17,3 +17,11 @@ def login(request):
         else:
             return redirect('home')
 
+
+
+def recipes(request):
+    return render(request, 'roseleaf_app/recipes.html', {})
+
+
+def new_recipe(request):
+    return render(request, 'roseleaf_app/new_recipe.html', {})
