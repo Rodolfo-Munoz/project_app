@@ -1,6 +1,7 @@
 from django.contrib.auth import authenticate
 from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import render, redirect
+from .models import Recipe
 
 
 def home(request):
@@ -18,9 +19,10 @@ def login(request):
             return redirect('home')
 
 
-
 def recipes(request):
-    return render(request, 'roseleaf_app/recipes.html', {})
+    recipe_list = Recipe.objects.all()
+    return render(request, 'roseleaf_app/recipes.html',
+                  {'recipe_list': recipe_list})
 
 
 def new_recipe(request):
