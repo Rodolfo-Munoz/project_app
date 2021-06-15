@@ -1,7 +1,9 @@
 from django.contrib.auth import authenticate
 from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import render, redirect
+from django.http import HttpResponseRedirect
 from .models import Recipe
+from.forms import RecipeForm
 
 
 def home(request):
@@ -26,4 +28,16 @@ def recipes(request):
 
 
 def new_recipe(request):
-    return render(request, 'roseleaf_app/new_recipe.html', {})
+    submitted = False
+    if request.method == 'POST':
+        form = RecipeForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/new_recipe?submitted=True')
+    else:
+        form = RecipeForm
+        if 'submitted' in request.GET:
+            submitted = True
+
+    form = RecipeForm
+    return render(request, 'roseleaf_app/new_recipe.html', {'form': form, 'submitted': submitted})
