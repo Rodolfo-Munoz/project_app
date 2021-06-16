@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from .models import Recipe
 from .forms import RecipeForm
+from .forms import IngredientForm
 
 
 def home(request):
@@ -45,7 +46,19 @@ def new_recipe(request):
 
 
 def ingredients(request):
-    return render(request, 'roseleaf_app/ingredients.html', {})
+    submitted = False
+    if request.method == 'POST':
+        form = IngredientForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/ingredients?submitted=True')
+    else:
+        form = IngredientForm
+        if 'submitted' in request.GET:
+            submitted = True
+
+    form = IngredientForm
+    return render(request, 'roseleaf_app/ingredients.html', {'form': form, 'submitted': submitted})
 
 
 def temperatures(request):

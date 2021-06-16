@@ -4,7 +4,29 @@
 
     <br><h3>Ingredients</h3>
 
+{% if submitted %}
+        <div class="alert alert-success" role="alert">
+            Ingredient has been added
+        </div>
+       <form action="" method="POST">
+            {% csrf_token %}
 
+            {{ form.as_p }}
+
+            <input type="submit" value="save" class="btn btn-secondary">
+        </form>
+    {% else %}
+
+
+        <form action="" method="POST">
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <input type="submit" value="save" class="btn btn-secondary">
+        </form>
+
+    {% endif %}
 
 
 

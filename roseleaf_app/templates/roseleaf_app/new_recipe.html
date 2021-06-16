@@ -4,8 +4,16 @@
 
     <br/><h3>New Recipe</h3><br/>
     {% if submitted %}
-        Your recipe was successfully saved <br>
-        <a class="btn btn-primary" href="{% url 'new_recipe' %}"> Back </a>
+         <div class="alert alert-success" role="alert">
+            Your recipe has been saved
+        </div>
+        <form action="" method="POST">
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <input type="submit" value="save" class="btn btn-secondary">
+        </form>
     {% else %}
 
 
@@ -16,6 +24,8 @@
 
             <input type="submit" value="save" class="btn btn-secondary">
         </form>
+
+
 
     {% endif %}
 
