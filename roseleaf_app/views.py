@@ -45,22 +45,6 @@ def new_recipe(request):
     return render(request, 'roseleaf_app/new_recipe.html', {'form': form, 'submitted': submitted})
 
 
-def ingredients(request):
-    submitted = False
-    if request.method == 'POST':
-        form = IngredientForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect('/ingredients?submitted=True')
-    else:
-        form = IngredientForm
-        if 'submitted' in request.GET:
-            submitted = True
-
-    form = IngredientForm
-    return render(request, 'roseleaf_app/ingredients.html', {'form': form, 'submitted': submitted})
-
-
 def temperatures(request):
     return render(request, 'roseleaf_app/temperatures.html', {})
 

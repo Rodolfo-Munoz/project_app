@@ -34,9 +34,7 @@
 
               <strong>Ingredients: </strong>
         <ul>
-        {%  for ingredient in recipe.Ingredients.all %}
-            <li> {{ ingredient}} </li>
-        {% endfor %}
+        <p class="card-text">{{ recipe.Ingredients }}</p>
           </ul>
 
         <strong>Method:</strong><br>

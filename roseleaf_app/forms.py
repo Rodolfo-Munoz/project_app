@@ -19,7 +19,7 @@ class RecipeForm(ModelForm):
             'description': forms.TextInput(attrs={'class':'form-control', 'placeholder' : 'Description'}),
             'user' : forms.Select(attrs={'class':'form-control'}),
             'season' : forms.Select(attrs={'class':'form-control'}),
-            'Ingredients' : forms.SelectMultiple(attrs={'class':'form-control'}),
+            'Ingredients' : forms.Textarea(attrs={'class':'form-control', 'rows': 5, 'placeholder' : 'Add ingredients'}),
             'method' : forms.Textarea(attrs={'class':'form-control', 'rows': 5, 'placeholder' : 'Method'}),
             'allergens' : forms.SelectMultiple(attrs={'class':'form-control'}),
         }

@@ -52,7 +52,7 @@ class Recipe(models.Model):
     description = models.CharField(max_length=100)
     user = models.ForeignKey(Member, on_delete=models.CASCADE)
     season = models.ForeignKey(Season, on_delete=models.CASCADE, null=True, blank=True)
-    Ingredients = models.ManyToManyField('Ingredient')
+    Ingredients = models.CharField(max_length=300)
     method = models.CharField(max_length=300)
     allergens = models.ManyToManyField('Allergen')
 
