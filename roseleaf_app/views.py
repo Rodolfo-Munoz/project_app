@@ -3,7 +3,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from .models import Recipe
-from.forms import RecipeForm
+from .forms import RecipeForm
 
 
 def home(request):
@@ -12,11 +12,12 @@ def home(request):
 
 def login(request):
     if request.method == 'GET':
-        return render(request, 'roseleaf_app/login.html', {'form':AuthenticationForm()})
+        return render(request, 'roseleaf_app/login.html', {'form': AuthenticationForm()})
     else:
         user = authenticate(request, username=request.POST['username'], password=request.POST['password'])
         if user is None:
-            return render(request, 'roseleaf_app/login.html', {'form':AuthenticationForm(), 'error':'Username and password did not match'})
+            return render(request, 'roseleaf_app/login.html',
+                          {'form': AuthenticationForm(), 'error': 'Username and password did not match'})
         else:
             return redirect('home')
 
@@ -41,3 +42,19 @@ def new_recipe(request):
 
     form = RecipeForm
     return render(request, 'roseleaf_app/new_recipe.html', {'form': form, 'submitted': submitted})
+
+
+def ingredients(request):
+    return render(request, 'roseleaf_app/ingredients.html', {})
+
+
+def temperatures(request):
+    return render(request, 'roseleaf_app/temperatures.html', {})
+
+
+def products(request):
+    return render(request, 'roseleaf_app/products.html', {})
+
+
+def orders(request):
+    return render(request, 'roseleaf_app/orders.html', {})

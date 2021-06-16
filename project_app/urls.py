@@ -24,4 +24,8 @@ urlpatterns = [
     path('home/', views.home, name='home'),
     path('recipes/', views.recipes, name='recipes'),
     path('new_recipe/', views.new_recipe, name='new_recipe'),
+    path('ingredients/', views.ingredients, name='ingredients'),
+    path('temperatures/', views.temperatures, name='temperatures'),
+    path('products/', views.products, name='products'),
+    path('orders/', views.orders, name='orders'),
 ]
