@@ -1,0 +1,37 @@
+{% extends 'roseleaf_app/base.html' %}
+
+{% block content %}
+
+
+    <br><br>
+    <div class="input-group mb-3 ">
+        <input type="text" class="form-control" placeholder="Search for a recipe" aria-label="Recipient's username" aria-describedby="basic-addon2">
+        <div class="input-group-append">
+            <button class="btn btn-primary" type="button">Search</button>
+        </div>
+    </div>
+    <br/>
+    <h2>Recipes list</h2>
+    <br>
+    <table class="table table-hover table-striped ">
+    <thead>
+            <tr>
+                <th scope="col">Recipe name</th>
+                <th scope="col">Description</th>
+            </tr>
+        </thead>
+    {% for recipe in recipe_list %}
+
+
+        <tr>
+            <td><a href="{% url 'show_recipe' recipe.id %}">{{ recipe }}</a></td>
+            <td>{{ recipe.description }}</td>
+        </tr>
+
+    {% endfor %}
+    </table>
+
+
+
+
+{% endblock %}

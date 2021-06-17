@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import ModelForm
 from .models import Recipe
-from .models import Ingredient
+
 
 
 # create a recipe form
@@ -25,9 +25,3 @@ class RecipeForm(ModelForm):
         }
 
 
-class IngredientForm(ModelForm):
-    class Meta:
-        model = Ingredient
-        fields = ("name",)
-        labels = {'name' : ''}
-        widgets = {'name': forms.TextInput(attrs={'class':'form-control', 'placeholder' : 'Add an ingredient'}),}

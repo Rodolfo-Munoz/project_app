@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from .models import Recipe
 from .forms import RecipeForm
-from .forms import IngredientForm
+
 
 
 def home(request):
@@ -55,3 +55,14 @@ def products(request):
 
 def orders(request):
     return render(request, 'roseleaf_app/orders.html', {})
+
+
+def list_recipes(request):
+    recipe_list = Recipe.objects.all()
+    return render(request, 'roseleaf_app/list_recipes.html',
+                  {'recipe_list' : recipe_list})
+
+
+def show_recipe(request, recipe_id):
+    recipe = Recipe.objects.get(pk=recipe_id)
+    return render(request, 'roseleaf_app/show_recipe.html', {'recipe' : recipe})

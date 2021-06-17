@@ -1,0 +1,38 @@
+{% extends 'roseleaf_app/base.html' %}
+
+{% block content %}
+     <br/>
+
+     <div class="card">
+          <div class="card-header">
+              <h4>Recipe</h4>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">{{ recipe.name }}</h5>
+            <p class="card-text">{{ recipe.description }}</p>
+              Created by: {{ recipe.user }}
+              <br>Season: {{ recipe.season }}<br><br>
+
+
+              <strong>Ingredients: </strong>
+        <ul>
+        <p class="card-text">{{ recipe.Ingredients }}</p>
+          </ul>
+
+        <strong>Method:</strong><br>
+        {{ recipe.method }}
+
+        <br><br>
+        <strong>Allergens: </strong>
+        <ul>
+        {% for allergen in recipe.allergens.all %}
+            <li>{{ allergen }}</li>
+        {% endfor %}<br>
+        </ul>
+         </div>
+        </div>
+
+
+
+
+{% endblock %}
