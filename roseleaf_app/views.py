@@ -66,3 +66,14 @@ def list_recipes(request):
 def show_recipe(request, recipe_id):
     recipe = Recipe.objects.get(pk=recipe_id)
     return render(request, 'roseleaf_app/show_recipe.html', {'recipe' : recipe})
+
+
+def search_recipes(request):
+    searched = request.POST.get('searched')
+    recipe_searched = Recipe.objects.filter(name__contains=searched)
+    return render(request, 'roseleaf_app/search_recipes.html', {'searched' : searched, 'recipe_searched' : recipe_searched})
+
+        
+
+
+
