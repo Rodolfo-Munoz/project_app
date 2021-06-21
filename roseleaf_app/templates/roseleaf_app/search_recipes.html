@@ -5,16 +5,35 @@
 {% if searched %}
         <h2>You searched for {{ searched }}</h2><br>
         <h3>Results: </h3>
-        {% for recipe in recipe_searched %}
+        <table class="table table-hover table-striped ">
+            <thead>
+                    <tr>
+                        <th scope="col">Recipe name</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Edit</th>
+                    </tr>
+                </thead>
+            {% for recipe in recipe_searched %}
 
-            <a href="{% url 'show_recipe' recipe.id %}"> {{ recipe }} </a> <br>
 
+                <tr>
+                    <td><a href="{% url 'show_recipe' recipe.id %}">{{ recipe }}</a></td>
+                    <td>{{ recipe.description }}</td>
+                    <td><a href="{% url 'update_recipe' recipe.id %}"
+                           class="btn btn-outline-secondary btn-sm"> Update </a></td>
+                </tr>
 
-        {% endfor %}
+            {% endfor %}
+            </table>
 
 {% else %}
         <h2>No results</h2>
 {% endif %}
 
+<br><br>
+
+
+
 
 {% endblock %}
+

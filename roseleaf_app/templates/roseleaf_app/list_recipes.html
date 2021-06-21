@@ -22,6 +22,7 @@
             <tr>
                 <th scope="col">Recipe name</th>
                 <th scope="col">Description</th>
+                <th scope="col">Edit</th>
             </tr>
         </thead>
     {% for recipe in recipe_list %}
@@ -30,6 +31,8 @@
         <tr>
             <td><a href="{% url 'show_recipe' recipe.id %}">{{ recipe }}</a></td>
             <td>{{ recipe.description }}</td>
+            <td><a href="{% url 'update_recipe' recipe.id %}"
+                   class="btn btn-outline-secondary btn-sm"> Update </a></td>
         </tr>
 
     {% endfor %}

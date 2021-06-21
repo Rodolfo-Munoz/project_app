@@ -73,7 +73,15 @@ def search_recipes(request):
     recipe_searched = Recipe.objects.filter(name__contains=searched)
     return render(request, 'roseleaf_app/search_recipes.html', {'searched' : searched, 'recipe_searched' : recipe_searched})
 
-        
+
+def update_recipe(request, recipe_id):
+    recipe = Recipe.objects.get(pk=recipe_id)
+    form = RecipeForm(request.POST or None, instance=recipe)
+    if form.is_valid():
+        form.save()
+        return redirect('list_recipes')
+    return render(request, 'roseleaf_app/update_recipe.html',
+                  {'recipe': recipe, 'form': form})
 
 
 
