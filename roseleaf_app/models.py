@@ -31,7 +31,7 @@ class Fridge(models.Model):
 
 
 class TempRecords(models.Model):
-    temp_date = models.DateTimeField()
+    temp_date = models.DateField()
     temperature = models.IntegerField()
     fridge = models.ForeignKey(Fridge, on_delete=models.CASCADE)
     user = models.ForeignKey(Member, on_delete=models.CASCADE)
@@ -102,7 +102,7 @@ class OrderDetail(models.Model):
 
 class Order(models.Model):
     user = models.ForeignKey(Member, on_delete=models.CASCADE)
-    date = models.DateTimeField()
+    date = models.DateField()
     order_detail = models.ManyToManyField('OrderDetail', default=None)
 
     def __str__(self):

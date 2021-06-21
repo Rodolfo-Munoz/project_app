@@ -34,7 +34,7 @@ class TempForm(ModelForm):
 
         }
         widgets = {
-            'temp_date': forms.TextInput(attrs={'class':'form-control', 'placeholder' : 'date and time'}),
+            'temp_date': forms.DateInput(format=('%m/%d/%Y'), attrs={'class':'form-control', 'placeholder':'Select a date', 'type':'date'}),
             'temperature': forms.NumberInput(attrs={'class':'form-control', 'placeholder' : 'Temperature'}),
             'user' : forms.Select(attrs={'class':'form-select'}),
             'fridge' : forms.Select(attrs={'class':'form-select'}),
