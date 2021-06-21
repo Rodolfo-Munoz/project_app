@@ -27,7 +27,7 @@ class RecipeForm(ModelForm):
 class TempForm(ModelForm):
     class Meta:
         model = TempRecords
-        fields = ('temp_date', 'temperature', 'fridge', 'user')
+        fields = ('temp_date', 'fridge', 'temperature', 'user')
         labels = {
             'temp_date' : '',
             'temperature' : '',

@@ -6,8 +6,6 @@ from .models import Recipe
 from .forms import RecipeForm, TempForm
 
 
-
-
 def home(request):
     return render(request, 'roseleaf_app/home.html', {})
 
@@ -62,7 +60,7 @@ def temperatures(request):
     return render(request, 'roseleaf_app/temperatures.html', {'form': form, 'submitted': submitted})
 
 
-    #return render(request, 'roseleaf_app/temperatures.html', {})
+
 
 
 def products(request):
@@ -74,7 +72,7 @@ def orders(request):
 
 
 def list_recipes(request):
-    recipe_list = Recipe.objects.all()
+    recipe_list = Recipe.objects.all().order_by('name')
     return render(request, 'roseleaf_app/list_recipes.html',
                   {'recipe_list' : recipe_list})
 
@@ -98,6 +96,13 @@ def update_recipe(request, recipe_id):
         return redirect('list_recipes')
     return render(request, 'roseleaf_app/update_recipe.html',
                   {'recipe': recipe, 'form': form})
+
+
+def delete_recipe(request, recipe_id):
+    recipe = Recipe.objects.get(pk=recipe_id)
+    recipe.delete()
+    return redirect('list_recipes')
+
 
 
 
