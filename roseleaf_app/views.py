@@ -3,7 +3,8 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from .models import Recipe
-from .forms import RecipeForm
+from .forms import RecipeForm, TempForm
+
 
 
 
@@ -46,7 +47,22 @@ def new_recipe(request):
 
 
 def temperatures(request):
-    return render(request, 'roseleaf_app/temperatures.html', {})
+    submitted = False
+    if request.method == 'POST':
+        form = TempForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/temperatures?submitted=True')
+    else:
+        form = RecipeForm
+        if 'submitted' in request.GET:
+            submitted = True
+
+    form = TempForm
+    return render(request, 'roseleaf_app/temperatures.html', {'form': form, 'submitted': submitted})
+
+
+    #return render(request, 'roseleaf_app/temperatures.html', {})
 
 
 def products(request):

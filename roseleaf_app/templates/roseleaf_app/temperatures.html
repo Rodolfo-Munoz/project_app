@@ -2,7 +2,34 @@
 
 {% block content %}
 
-    <br><h3>Temperature records</h3>
+    <br><h3>Temperature records</h3><br>
+    <h4>Add a temperature record:</h4><br>
+
+    {% if submitted %}
+
+         <div class="alert alert-success" role="alert">
+            Your Temperature record has been saved
+        </div>
+        <form action="" method="POST">
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <input type="submit" value="save" class="btn btn-secondary">
+        </form>
+
+    {% else %}
+
+        <form action="" method="POST">
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <input type="submit" value="save" class="btn btn-secondary">
+        </form>
+
+    {% endif %}
+
 
 
 
