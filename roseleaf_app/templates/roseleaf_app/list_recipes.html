@@ -25,7 +25,7 @@
                 <th scope="col">Edit</th>
             </tr>
         </thead>
-    {% for recipe in recipe_list %}
+    {% for recipe in recipe_page %}
 
 
         <tr>
@@ -40,8 +40,25 @@
 
     {% endfor %}
     </table>
+    <br><br>
+    {{ recipe_page }}<br>
+
+    {% if recipe_page.has_previous %}
+        <a href="?page=1">&laquo; First </a>
+        <a href="?page={{ recipe_page.previous_page_number }}">Previous page</a>
 
 
+
+    {% endif %}
+
+    Page {{ recipe_page.number }} of {{ recipe_page.paginator.num_pages }}
+
+    {% if recipe_page.has_next%}
+        <a href="?page={{ recipe_page.next_page_number }}">Next page</a>
+        <a href="?page={{ recipe_page.paginator.num_pages }}">Last &raquo;</a>
+
+
+    {% endif %}
 
 
 {% endblock %}

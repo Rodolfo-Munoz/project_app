@@ -1,10 +1,12 @@
 from django.contrib.auth import authenticate
 from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import render, redirect
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from .models import Recipe
 from .forms import RecipeForm, TempForm
 
+# Pagination imports
+from django.core.paginator import Paginator
 
 def home(request):
     return render(request, 'roseleaf_app/home.html', {})
@@ -72,9 +74,16 @@ def orders(request):
 
 
 def list_recipes(request):
-    recipe_list = Recipe.objects.all().order_by('name')
+    recipe_list = Recipe.objects.all()
+
+    # Set up pagination
+    p = Paginator(Recipe.objects.all().order_by('name'), 5)
+    page = request.GET.get('page')
+    recipe_page = p.get_page(page)
+
     return render(request, 'roseleaf_app/list_recipes.html',
-                  {'recipe_list' : recipe_list})
+                  {'recipe_list' : recipe_list,
+                   'recipe_page' : recipe_page})
 
 
 def show_recipe(request, recipe_id):
@@ -102,6 +111,9 @@ def delete_recipe(request, recipe_id):
     recipe = Recipe.objects.get(pk=recipe_id)
     recipe.delete()
     return redirect('list_recipes')
+
+
+
 
 
 
