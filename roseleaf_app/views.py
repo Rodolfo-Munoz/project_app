@@ -80,10 +80,12 @@ def list_recipes(request):
     p = Paginator(Recipe.objects.all().order_by('name'), 5)
     page = request.GET.get('page')
     recipe_page = p.get_page(page)
+    nums = 'a' * recipe_page.paginator.num_pages
 
     return render(request, 'roseleaf_app/list_recipes.html',
                   {'recipe_list' : recipe_list,
-                   'recipe_page' : recipe_page})
+                   'recipe_page' : recipe_page,
+                   'nums': nums})
 
 
 def show_recipe(request, recipe_id):
