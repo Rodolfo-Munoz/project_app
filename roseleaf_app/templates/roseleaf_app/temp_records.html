@@ -12,19 +12,20 @@
                 <th scope="col">Date</th>
                 <th scope="col">Fridge</th>
                 <th scope="col" >Temperature</th>
-                <th scope="col">Edit</th>
+                <th scope="col">Taken by</th>
+                <th scope="col">Delete?</th>
             </tr>
         </thead>
     {% for record in temp_page %}
 
 
         <tr>
-            <td><a href="#">{{ record.temp_date }}</a></td>
+            <td><a href="{% url 'show_temp_record' record.id %}">{{ record.temp_date }}</a></td>
             <td>{{ record.fridge }}</td>
             <td>{{ record.temperature }}</td>
-            <td><a href="#"
-                   class="btn btn-outline-secondary btn-sm"> Update </a>
-                <a href="#"
+            <td>{{ record.user }}</td>
+            <td>
+                <a href="{% url 'delete_temp_record' record.id %}"
                    class="btn btn-outline-danger btn-sm"> Delete  </a>
             </td>
         </tr>

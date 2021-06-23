@@ -33,4 +33,6 @@ urlpatterns = [
     path('update_recipe/<recipe_id>', views.update_recipe, name='update_recipe'),
     path('delete_recipe/<recipe_id>', views.delete_recipe, name='delete_recipe'),
     path('temp_records/', views.temp_records, name='temp_records'),
+    path('show_temp_record/<temp_record_id>', views.show_temp_record, name='show_temp_record'),
+    path('delete_temp_record/<temp_record_id>', views.delete_temp_record, name='delete_temp_record'),
 ]

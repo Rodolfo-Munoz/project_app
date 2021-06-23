@@ -131,5 +131,16 @@ def temp_records(request):
                    'temp_list' : temp_list})
 
 
+def show_temp_record(request, temp_record_id):
+    temp_record = TempRecords.objects.get(pk=temp_record_id)
+    return render(request, 'roseleaf_app/show_temp_record.html', {'temp_record' : temp_record})
+
+
+def delete_temp_record(request, temp_record_id):
+    temp_record = TempRecords.objects.get(pk=temp_record_id)
+    temp_record.delete()
+    return redirect('temp_records')
+
+
 
 

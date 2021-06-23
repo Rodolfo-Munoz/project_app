@@ -1,0 +1,31 @@
+{% extends 'roseleaf_app/base.html' %}
+
+{% block content %}
+    <br/>
+
+     <div class="card">
+          <div class="card-header">
+              <h4>Temperature record</h4>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">{{ temp_record.temp_date }}</h5>
+            <p class="card-text">{{ temp_record.fridge }}</p>
+              Temperature: {{ temp_record.temperature }}
+              <br>Taken by: {{ temp_record.user }}<br><br>
+          </div>
+
+     <div class="card-footer text-muted">
+
+        <a href="{% url 'delete_temp_record' temp_record.id %}"
+                   class="btn btn-outline-danger btn-sm"> Delete  </a>
+     </div>
+
+     </div>
+
+
+
+
+
+
+
+{% endblock %}
