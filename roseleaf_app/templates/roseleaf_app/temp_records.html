@@ -1,0 +1,68 @@
+{% extends 'roseleaf_app/base.html' %}
+
+{% block content %}
+     <br/>
+    <h2>Temperature Records</h2>
+
+
+    <br>
+    <table class="table table-hover table-striped ">
+    <thead>
+            <tr>
+                <th scope="col">Date</th>
+                <th scope="col">Fridge</th>
+                <th scope="col" >Temperature</th>
+                <th scope="col">Edit</th>
+            </tr>
+        </thead>
+    {% for record in temp_page %}
+
+
+        <tr>
+            <td><a href="#">{{ record.temp_date }}</a></td>
+            <td>{{ record.fridge }}</td>
+            <td>{{ record.temperature }}</td>
+            <td><a href="#"
+                   class="btn btn-outline-secondary btn-sm"> Update </a>
+                <a href="#"
+                   class="btn btn-outline-danger btn-sm"> Delete  </a>
+            </td>
+        </tr>
+
+    {% endfor %}
+    </table>
+    <br><br>
+    <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+
+
+    {% if temp_page.has_previous %}
+        <li class="page-item"><a class="page-link" href="?page=1" >&laquo; First  </a></li>
+        <li class="page-item"><a class="page-link" href="?page={{ temp_page.previous_page_number }}">Previous page</a></li>
+
+
+
+    {% endif %}
+
+
+
+
+    {% for i in nums %}
+
+        <li class="page-item"><a class="page-link" href="?page={{ forloop.counter }}">{{ forloop.counter }}</a></li>
+
+    {% endfor %}
+
+    {% if temp_page.has_next%}
+        <li class="page-item"> <a class="page-link" href="?page={{ temp_page.next_page_number }}">Next page</a></li>
+        <li class="page-item"><a class="page-link" href="?page={{ temp_page.paginator.num_pages }}">Last &raquo;</a></li>
+
+
+    {% endif %}
+
+    </ul>
+    <ul class="pagination justify-content-center">
+    <li class="page-item disabled"><a class="page-link" href="#">Page {{ temp_page.number }} of {{ temp_page.paginator.num_pages }}</a></li>
+    </ul>
+    </nav>
+{% endblock %}

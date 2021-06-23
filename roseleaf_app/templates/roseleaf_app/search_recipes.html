@@ -20,7 +20,11 @@
                     <td><a href="{% url 'show_recipe' recipe.id %}">{{ recipe }}</a></td>
                     <td>{{ recipe.description }}</td>
                     <td><a href="{% url 'update_recipe' recipe.id %}"
-                           class="btn btn-outline-secondary btn-sm"> Update </a></td>
+                           class="btn btn-outline-secondary btn-sm"> Update </a>
+                    <a href="{% url 'delete_recipe' recipe.id %}"
+                   class="btn btn-outline-danger btn-sm"> Delete  </a>
+                    </td>
+
                 </tr>
 
             {% endfor %}

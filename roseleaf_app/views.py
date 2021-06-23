@@ -2,7 +2,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect, HttpResponse
-from .models import Recipe
+from .models import Recipe, TempRecords
 from .forms import RecipeForm, TempForm
 
 # Pagination imports
@@ -115,7 +115,20 @@ def delete_recipe(request, recipe_id):
     return redirect('list_recipes')
 
 
+def temp_records(request):
+    temp_list = TempRecords.objects.all()
 
+    # Set up pagination
+    p = Paginator(TempRecords.objects.all().order_by('-temp_date'), 10)
+    page = request.GET.get('page')
+    temp_page = p.get_page(page)
+    nums = 'a' * temp_page.paginator.num_pages
+
+    return render(request, 'roseleaf_app/temp_records.html',
+                  {
+                   'temp_page' : temp_page,
+                   'nums': nums,
+                   'temp_list' : temp_list})
 
 
 
