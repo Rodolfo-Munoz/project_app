@@ -77,7 +77,7 @@ def list_recipes(request):
     recipe_list = Recipe.objects.all()
 
     # Set up pagination
-    p = Paginator(Recipe.objects.all().order_by('name'), 5)
+    p = Paginator(Recipe.objects.all().order_by('name'), 8)
     page = request.GET.get('page')
     recipe_page = p.get_page(page)
     nums = 'a' * recipe_page.paginator.num_pages
