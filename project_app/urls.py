@@ -36,4 +36,8 @@ urlpatterns = [
     path('show_temp_record/<temp_record_id>', views.show_temp_record, name='show_temp_record'),
     path('delete_temp_record/<temp_record_id>', views.delete_temp_record, name='delete_temp_record'),
     path('show_product/<product_id>', views.show_product, name='show_product'),
+    path('search_product/', views.search_product, name='search_product'),
+    path('new_product/', views.new_product, name='new_product'),
+    path('new_supplier/', views.new_supplier, name='new_supplier'),
+
 ]

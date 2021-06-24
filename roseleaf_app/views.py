@@ -3,7 +3,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect, HttpResponse
 from .models import Recipe, TempRecords, Product
-from .forms import RecipeForm, TempForm
+from .forms import RecipeForm, TempForm, ProductForm, SupplierForm
 
 # Pagination imports
 from django.core.paginator import Paginator
@@ -66,7 +66,7 @@ def products(request):
     product_list = Product.objects.all()
 
     # Set up pagination
-    p = Paginator(Product.objects.all().order_by('name', 'supplier', 'product_type', 'area'), 8)
+    p = Paginator(Product.objects.all().order_by('name'), 8)
     page = request.GET.get('page')
     product_page = p.get_page(page)
     nums = 'a' * product_page.paginator.num_pages
@@ -77,9 +77,32 @@ def products(request):
                    'nums': nums})
 
 
+def new_product(request):
+    submitted = False
+    if request.method == 'POST':
+        form = ProductForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/new_product?submitted=True')
+    else:
+        form = ProductForm
+        if 'submitted' in request.GET:
+            submitted = True
+
+    form = ProductForm
+    return render(request, 'roseleaf_app/new_product.html', {'form': form, 'submitted': submitted})
+
+
 def show_product(request, product_id):
     product = Product.objects.get(pk=product_id)
     return render(request, 'roseleaf_app/show_product.html', {'product' : product})
+
+
+def search_product(request):
+    searched = request.POST.get('searched')
+    product_searched = Product.objects.filter(supplier__name__contains=searched) | Product.objects.filter(name__contains=searched) | Product.objects.filter(area__name__contains=searched) | Product.objects.filter(product_type__product_type__contains=searched)
+
+    return render(request, 'roseleaf_app/search_product.html', {'searched' : searched, 'product_searched' : product_searched})
 
 
 def orders(request):
@@ -155,5 +178,18 @@ def delete_temp_record(request, temp_record_id):
     return redirect('temp_records')
 
 
+def new_supplier(request):
+    submitted = False
+    if request.method == 'POST':
+        form = SupplierForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/new_supplier?submitted=True')
+    else:
+        form = SupplierForm
+        if 'submitted' in request.GET:
+            submitted = True
 
+    form = SupplierForm
+    return render(request, 'roseleaf_app/new_supplier.html', {'form': form, 'submitted': submitted})
 

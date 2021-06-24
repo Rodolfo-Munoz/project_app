@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm
-from .models import Recipe, TempRecords
+from .models import Recipe, TempRecords, Product, Supplier
 
 
 
@@ -24,6 +24,7 @@ class RecipeForm(ModelForm):
             'allergens' : forms.SelectMultiple(attrs={'class':'form-control'}),
         }
 
+# Temperature records form
 class TempForm(ModelForm):
     class Meta:
         model = TempRecords
@@ -41,3 +42,36 @@ class TempForm(ModelForm):
         }
 
 
+# create a new product form
+class ProductForm(ModelForm):
+    class Meta:
+        model = Product
+        fields = "__all__"
+        labels = {
+            'name' : '',
+            'price' : '',
+        }
+
+        widgets = {
+            'name': forms.TextInput(attrs={'class':'form-control', 'placeholder' : 'Product name'}),
+            'supplier': forms.Select(attrs={'class':'form-select'}),
+            'product_type' : forms.Select(attrs={'class':'form-select'}),
+            'area' : forms.Select(attrs={'class':'form-select'}),
+            'price' : forms.NumberInput(attrs={'class':'form-control', 'placeholder' : 'Price'}),
+
+        }
+
+
+# create a new suppliers form
+class SupplierForm(ModelForm):
+    class Meta:
+        model = Supplier
+        fields = "__all__"
+        labels = {
+            'name' : '',
+        }
+
+        widgets = {
+            'name': forms.TextInput(attrs={'class':'form-control', 'placeholder' : 'Supplier name'}),
+
+        }

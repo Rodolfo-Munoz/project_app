@@ -3,10 +3,10 @@
 {% block content %}
 
  <br><br>
-    <form class="d-flex" method="post" action="">
+    <form class="d-flex" method="post" action="{% url 'search_product' %}">
         {% csrf_token %}
         <input class="form-control me-2" type="search"
-               placeholder="Search a product by name, supplier, type or area " aria-label="Search" name="searched">
+               placeholder="Search a product by name, supplier, type or area" aria-label="Search" name="searched">
         <button class="btn btn-outline-secondary" type="submit">Search</button>
 
     </form>
