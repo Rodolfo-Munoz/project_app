@@ -24,9 +24,9 @@
                     <td>{{ product.product_type }}</td>
                     <td>{{ product.area }}</td>
                     <td>{{ product.price }}</td>
-                    <td><a href=""
+                    <td><a href="{% url 'update_product' product.id %}"
                            class="btn btn-outline-secondary btn-sm"> Update </a>
-                    <a href=""
+                    <a href="{% url 'delete_product' product.id %}"
                    class="btn btn-outline-danger btn-sm"> Delete  </a>
                     </td>
 

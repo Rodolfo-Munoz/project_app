@@ -2,7 +2,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect, HttpResponse
-from .models import Recipe, TempRecords, Product
+from .models import Recipe, TempRecords, Product, Supplier
 from .forms import RecipeForm, TempForm, ProductForm, SupplierForm
 
 # Pagination imports
@@ -105,6 +105,22 @@ def search_product(request):
     return render(request, 'roseleaf_app/search_product.html', {'searched' : searched, 'product_searched' : product_searched})
 
 
+def update_product(request, product_id):
+    product = Product.objects.get(pk=product_id)
+    form = ProductForm(request.POST or None, instance=product)
+    if form.is_valid():
+        form.save()
+        return redirect('products')
+    return render(request, 'roseleaf_app/update_product.html',
+                  {'product': product, 'form': form})
+
+
+def delete_product(request, product_id):
+    product = Product.objects.get(pk=product_id)
+    product.delete()
+    return redirect('products')
+
+
 def orders(request):
     return render(request, 'roseleaf_app/orders.html', {})
 
@@ -179,6 +195,7 @@ def delete_temp_record(request, temp_record_id):
 
 
 def new_supplier(request):
+    suppliers_list = Supplier.objects.all()
     submitted = False
     if request.method == 'POST':
         form = SupplierForm(request.POST)
@@ -191,5 +208,12 @@ def new_supplier(request):
             submitted = True
 
     form = SupplierForm
-    return render(request, 'roseleaf_app/new_supplier.html', {'form': form, 'submitted': submitted})
+    return render(request, 'roseleaf_app/new_supplier.html', {'form': form,
+                                                              'submitted': submitted,
+                                                              'suppliers_list' : suppliers_list})
 
+
+def delete_supplier(request, supplier_id):
+    supplier = Supplier.objects.get(pk=supplier_id)
+    supplier.delete()
+    return redirect('new_supplier')

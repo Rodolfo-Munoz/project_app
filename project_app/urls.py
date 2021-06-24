@@ -39,5 +39,8 @@ urlpatterns = [
     path('search_product/', views.search_product, name='search_product'),
     path('new_product/', views.new_product, name='new_product'),
     path('new_supplier/', views.new_supplier, name='new_supplier'),
+    path('update_product/<product_id>', views.update_product, name='update_product'),
+    path('delete_product/<product_id>', views.delete_product, name='delete_product'),
+    path('delete_supplier/<supplier_id>', views.delete_supplier, name='delete_supplier'),
 
 ]
