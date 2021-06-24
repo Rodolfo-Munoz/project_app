@@ -1,0 +1,33 @@
+{% extends 'roseleaf_app/base.html' %}
+
+{% block content %}
+
+<br/>
+
+     <div class="card">
+          <div class="card-header">
+              <h4>Product</h4>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">{{ product.name }}</h5>
+
+              Supplier: {{ product.supplier }}<br>
+              Type: {{ product.product_type }}<br>
+              Area: {{ product.area }}<br>
+              Price: {{ product.price }}<br>
+
+          </div>
+
+     <div class="card-footer text-muted">
+        <a href=""
+                   class="btn btn-outline-secondary btn-sm"> Update </a>
+        <a href=""
+                   class="btn btn-outline-danger btn-sm"> Delete  </a>
+     </div>
+
+     </div>
+
+
+
+
+{% endblock %}

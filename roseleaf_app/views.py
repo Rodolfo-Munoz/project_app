@@ -2,7 +2,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect, HttpResponse
-from .models import Recipe, TempRecords
+from .models import Recipe, TempRecords, Product
 from .forms import RecipeForm, TempForm
 
 # Pagination imports
@@ -62,11 +62,24 @@ def temperatures(request):
     return render(request, 'roseleaf_app/temperatures.html', {'form': form, 'submitted': submitted})
 
 
-
-
-
 def products(request):
-    return render(request, 'roseleaf_app/products.html', {})
+    product_list = Product.objects.all()
+
+    # Set up pagination
+    p = Paginator(Product.objects.all().order_by('name', 'supplier', 'product_type', 'area'), 8)
+    page = request.GET.get('page')
+    product_page = p.get_page(page)
+    nums = 'a' * product_page.paginator.num_pages
+
+    return render(request, 'roseleaf_app/products.html',
+                  {'product_list': product_list,
+                   'product_page': product_page,
+                   'nums': nums})
+
+
+def show_product(request, product_id):
+    product = Product.objects.get(pk=product_id)
+    return render(request, 'roseleaf_app/show_product.html', {'product' : product})
 
 
 def orders(request):
