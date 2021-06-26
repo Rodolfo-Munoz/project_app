@@ -2,9 +2,84 @@
 
 {% block content %}
 
-    <br><h3>Orders</h3>
+<br><br>
+    <form class="d-flex" method="post" action="">
+        {% csrf_token %}
+        <input class="form-control me-2" type="search"
+               placeholder="Search for an order" aria-label="Search" name="searched">
+        <button class="btn btn-outline-secondary" type="submit">Search</button>
+
+    </form>
 
 
+
+    <br/>
+    <h2>Orders list</h2>
+    <br>
+    <table class="table table-hover table-striped ">
+    <thead>
+            <tr>
+                <th scope="col">Date</th>
+                <th scope="col">User</th>
+                <th scope="col">Order detail</th>
+                <th scope="col">Edit</th>
+            </tr>
+        </thead>
+    {% for order in orders_page %}
+
+
+        <tr>
+            <td><a href="">{{ order.date }}</a></td>
+            <td>{{ order.user }}</td>
+            <td>
+                {% for i in order.order_detail.all %}
+                    <li>{{ i }}</li>
+                {% endfor %}
+
+            </td>
+            <td><a href=""
+                   class="btn btn-outline-secondary btn-sm"> Update </a>
+                <a href=""
+                   class="btn btn-outline-danger btn-sm"> Delete  </a>
+            </td>
+        </tr>
+
+    {% endfor %}
+    </table>
+    <br><br>
+    <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+
+
+    {% if orders_page.has_previous %}
+        <li class="page-item"><a class="page-link" href="?page=1" >&laquo; First  </a></li>
+        <li class="page-item"><a class="page-link" href="?page={{ orders_page.previous_page_number }}">Previous page</a></li>
+
+
+
+    {% endif %}
+
+
+
+
+    {% for i in nums %}
+
+        <li class="page-item"><a class="page-link" href="?page={{ forloop.counter }}">{{ forloop.counter }}</a></li>
+
+    {% endfor %}
+
+    {% if orders_page.has_next%}
+        <li class="page-item"> <a class="page-link" href="?page={{ orders_page.next_page_number }}">Next page</a></li>
+        <li class="page-item"><a class="page-link" href="?page={{ orders_page.paginator.num_pages }}">Last &raquo;</a></li>
+
+
+    {% endif %}
+
+    </ul>
+    <ul class="pagination justify-content-center">
+    <li class="page-item disabled"><a class="page-link" href="#">Page {{ orders_page.number }} of {{ orders_page.paginator.num_pages }}</a></li>
+    </ul>
+    </nav>
 
 
 

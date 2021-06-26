@@ -2,7 +2,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect, HttpResponse
-from .models import Recipe, TempRecords, Product, Supplier
+from .models import Recipe, TempRecords, Product, Supplier, Order, OrderDetail
 from .forms import RecipeForm, TempForm, ProductForm, SupplierForm
 
 # Pagination imports
@@ -121,10 +121,6 @@ def delete_product(request, product_id):
     return redirect('products')
 
 
-def orders(request):
-    return render(request, 'roseleaf_app/orders.html', {})
-
-
 def list_recipes(request):
     recipe_list = Recipe.objects.all()
 
@@ -217,3 +213,18 @@ def delete_supplier(request, supplier_id):
     supplier = Supplier.objects.get(pk=supplier_id)
     supplier.delete()
     return redirect('new_supplier')
+
+
+def orders(request):
+    orders_list = Order.objects.all()
+
+    # Set up pagination
+    p = Paginator(Order.objects.all().order_by('date'), 8)
+    page = request.GET.get('page')
+    orders_page = p.get_page(page)
+    nums = 'a' * orders_page.paginator.num_pages
+
+    return render(request, 'roseleaf_app/orders.html',
+                  {'orders_list' : orders_list,
+                   'orders_page' : orders_page,
+                   'nums': nums})

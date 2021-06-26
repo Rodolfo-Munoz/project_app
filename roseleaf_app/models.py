@@ -103,7 +103,7 @@ class OrderDetail(models.Model):
 class Order(models.Model):
     user = models.ForeignKey(Member, on_delete=models.CASCADE)
     date = models.DateField()
-    order_detail = models.ManyToManyField('OrderDetail', default=None)
+    order_detail = models.ManyToManyField('OrderDetail', default=None,)
 
     def __str__(self):
         return str(self.date)
