@@ -3,7 +3,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect, HttpResponse
 from .models import Recipe, TempRecords, Product, Supplier, Order, OrderDetail
-from .forms import RecipeForm, TempForm, ProductForm, SupplierForm
+from .forms import RecipeForm, TempForm, ProductForm, SupplierForm, OrderForm, OrderDetailForm
 
 # Pagination imports
 from django.core.paginator import Paginator
@@ -246,3 +246,35 @@ def delete_order(request, order_id):
     order = Order.objects.get(pk=order_id)
     order.delete()
     return redirect('orders')
+
+
+def new_order(request):
+    submitted = False
+    if request.method == 'POST':
+        form = OrderForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/new_order?submitted=True')
+    else:
+        form = OrderForm
+        if 'submitted' in request.GET:
+            submitted = True
+
+    form = OrderForm
+    return render(request, 'roseleaf_app/new_order.html', {'form': form, 'submitted': submitted})
+
+
+def new_order_detail(request):
+    submitted = False
+    if request.method == 'POST':
+        form = OrderDetailForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/new_order_detail?submitted=True')
+    else:
+        form = OrderDetailForm
+        if 'submitted' in request.GET:
+            submitted = True
+
+    form = OrderDetailForm
+    return render(request, 'roseleaf_app/new_order_detail.html', {'form': form, 'submitted': submitted})

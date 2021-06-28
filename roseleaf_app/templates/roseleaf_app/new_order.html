@@ -1,0 +1,39 @@
+{% extends 'roseleaf_app/base.html' %}
+
+{% block content %}
+
+    <br/><h3>New Order</h3><br/>
+    {% if submitted %}
+         <div class="alert alert-success" role="alert">
+            Your order has been saved
+        </div>
+        <form action="" method="POST">
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <input type="submit" value="save" class="btn btn-secondary">
+        </form>
+    {% else %}
+
+
+        <form action="" method="POST">
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <input type="submit" value="save" class="btn btn-secondary">
+        </form>
+
+
+
+    {% endif %}
+
+
+<br><hr><br>
+    <h4><a class="link-secondary" href="{% url 'new_order_detail' %}" style="text-decoration: none" >Add an order detail</a></h4>
+
+
+
+
+{% endblock %}

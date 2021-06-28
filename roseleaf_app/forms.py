@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm
-from .models import Recipe, TempRecords, Product, Supplier
+from .models import Recipe, TempRecords, Product, Supplier, Order, OrderDetail
 
 
 
@@ -74,4 +74,35 @@ class SupplierForm(ModelForm):
         widgets = {
             'name': forms.TextInput(attrs={'class':'form-control', 'placeholder' : 'Supplier name'}),
 
+        }
+
+
+# create a new order form
+class OrderForm(ModelForm):
+    class Meta:
+        model = Order
+        fields = "__all__"
+        labels = {
+            'date' : '',
+        }
+
+        widgets = {
+            'date': forms.DateInput(format=('%m/%d/%Y'), attrs={'class':'form-control', 'placeholder':'Select a date', 'type':'date'}),
+            'user': forms.Select(attrs={'class': 'form-select'}),
+            'order_detail': forms.SelectMultiple(attrs={'class': 'form-control'}),
+        }
+
+
+# create a new order detail form
+class OrderDetailForm(ModelForm):
+    class Meta:
+        model = OrderDetail
+        fields = "__all__"
+        labels = {
+            'quantity' : '',
+        }
+
+        widgets = {
+            'product': forms.Select(attrs={'class': 'form-select' }),
+            'quantity': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Quantity'}),
         }
