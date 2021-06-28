@@ -233,3 +233,10 @@ def orders(request):
 def show_order(request, order_id):
     order = Order.objects.get(pk=order_id)
     return render(request, 'roseleaf_app/show_order.html', {'order' : order})
+
+
+def search_orders(request):
+    searched = request.POST.get('searched')
+    order_searched =   (Order.objects.filter(order_detail__product__name__contains=searched) | Order.objects.filter(user__username__icontains=searched)).distinct()
+
+    return render(request, 'roseleaf_app/search_orders.html', {'searched' : searched, 'order_searched' : order_searched})

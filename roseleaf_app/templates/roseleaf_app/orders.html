@@ -3,7 +3,7 @@
 {% block content %}
 
 <br><br>
-    <form class="d-flex" method="post" action="">
+    <form class="d-flex" method="post" action="{% url 'search_orders' %}">
         {% csrf_token %}
         <input class="form-control me-2" type="search"
                placeholder="Search for an order" aria-label="Search" name="searched">
