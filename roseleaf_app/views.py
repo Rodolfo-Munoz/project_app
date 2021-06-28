@@ -219,7 +219,7 @@ def orders(request):
     orders_list = Order.objects.all()
 
     # Set up pagination
-    p = Paginator(Order.objects.all().order_by('date'), 8)
+    p = Paginator(Order.objects.all().order_by('-date'), 8)
     page = request.GET.get('page')
     orders_page = p.get_page(page)
     nums = 'a' * orders_page.paginator.num_pages
@@ -240,3 +240,9 @@ def search_orders(request):
     order_searched =   (Order.objects.filter(order_detail__product__name__contains=searched) | Order.objects.filter(user__username__icontains=searched)).distinct()
 
     return render(request, 'roseleaf_app/search_orders.html', {'searched' : searched, 'order_searched' : order_searched})
+
+
+def delete_order(request, order_id):
+    order = Order.objects.get(pk=order_id)
+    order.delete()
+    return redirect('orders')
