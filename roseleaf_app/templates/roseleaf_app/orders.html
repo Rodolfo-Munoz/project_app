@@ -29,7 +29,7 @@
 
 
         <tr>
-            <td><a href="">{{ order.date }}</a></td>
+            <td><a href="{% url 'show_order' order.id %}">{{ order.date }}</a></td>
             <td>{{ order.user }}</td>
             <td>
                 {% for i in order.order_detail.all %}

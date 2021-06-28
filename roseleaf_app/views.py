@@ -228,3 +228,8 @@ def orders(request):
                   {'orders_list' : orders_list,
                    'orders_page' : orders_page,
                    'nums': nums})
+
+
+def show_order(request, order_id):
+    order = Order.objects.get(pk=order_id)
+    return render(request, 'roseleaf_app/show_order.html', {'order' : order})
