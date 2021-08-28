@@ -106,3 +106,5 @@ class OrderDetailForm(ModelForm):
             'product': forms.Select(attrs={'class': 'form-select' }),
             'quantity': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Quantity'}),
         }
+
+

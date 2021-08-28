@@ -48,4 +48,5 @@ urlpatterns = [
     path('new_order/', views.new_order, name='new_order'),
     path('new_order_detail/', views.new_order_detail, name='new_order_detail'),
 
+
 ]

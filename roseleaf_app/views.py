@@ -278,3 +278,4 @@ def new_order_detail(request):
 
     form = OrderDetailForm
     return render(request, 'roseleaf_app/new_order_detail.html', {'form': form, 'submitted': submitted})
+
