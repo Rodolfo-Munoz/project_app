@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, logout, login
 from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect, HttpResponse
@@ -8,20 +8,30 @@ from .forms import RecipeForm, TempForm, ProductForm, SupplierForm, OrderForm, O
 # Pagination imports
 from django.core.paginator import Paginator
 
+
 def home(request):
     return render(request, 'roseleaf_app/home.html', {})
 
 
 def login(request):
     if request.method == 'GET':
-        return render(request, 'roseleaf_app/login.html', {'form': AuthenticationForm()})
+        return render(request, 'roseleaf_app/login.html',
+                      {'form': AuthenticationForm()})
     else:
-        user = authenticate(request, username=request.POST['username'], password=request.POST['password'])
+        user = authenticate(request,
+                            username=request.POST['username'],
+                            password=request.POST['password'])
         if user is None:
-            return render(request, 'roseleaf_app/login.html',
+            return render(request,
+                          'roseleaf_app/login.html',
                           {'form': AuthenticationForm(), 'error': 'Username and password did not match'})
         else:
             return redirect('home')
+
+
+def logout(request):
+    logout(request)
+    return redirect('login')
 
 
 def recipes(request):
@@ -95,14 +105,17 @@ def new_product(request):
 
 def show_product(request, product_id):
     product = Product.objects.get(pk=product_id)
-    return render(request, 'roseleaf_app/show_product.html', {'product' : product})
+    return render(request, 'roseleaf_app/show_product.html', {'product': product})
 
 
 def search_product(request):
     searched = request.POST.get('searched')
-    product_searched = Product.objects.filter(supplier__name__contains=searched) | Product.objects.filter(name__contains=searched) | Product.objects.filter(area__name__contains=searched) | Product.objects.filter(product_type__product_type__contains=searched)
+    product_searched = Product.objects.filter(supplier__name__contains=searched) | Product.objects.filter(
+        name__contains=searched) | Product.objects.filter(area__name__contains=searched) | Product.objects.filter(
+        product_type__product_type__contains=searched)
 
-    return render(request, 'roseleaf_app/search_product.html', {'searched' : searched, 'product_searched' : product_searched})
+    return render(request, 'roseleaf_app/search_product.html',
+                  {'searched': searched, 'product_searched': product_searched})
 
 
 def update_product(request, product_id):
@@ -131,20 +144,21 @@ def list_recipes(request):
     nums = 'a' * recipe_page.paginator.num_pages
 
     return render(request, 'roseleaf_app/list_recipes.html',
-                  {'recipe_list' : recipe_list,
-                   'recipe_page' : recipe_page,
+                  {'recipe_list': recipe_list,
+                   'recipe_page': recipe_page,
                    'nums': nums})
 
 
 def show_recipe(request, recipe_id):
     recipe = Recipe.objects.get(pk=recipe_id)
-    return render(request, 'roseleaf_app/show_recipe.html', {'recipe' : recipe})
+    return render(request, 'roseleaf_app/show_recipe.html', {'recipe': recipe})
 
 
 def search_recipes(request):
     searched = request.POST.get('searched')
     recipe_searched = Recipe.objects.filter(name__contains=searched)
-    return render(request, 'roseleaf_app/search_recipes.html', {'searched' : searched, 'recipe_searched' : recipe_searched})
+    return render(request, 'roseleaf_app/search_recipes.html',
+                  {'searched': searched, 'recipe_searched': recipe_searched})
 
 
 def update_recipe(request, recipe_id):
@@ -174,14 +188,14 @@ def temp_records(request):
 
     return render(request, 'roseleaf_app/temp_records.html',
                   {
-                   'temp_page' : temp_page,
-                   'nums': nums,
-                   'temp_list' : temp_list})
+                      'temp_page': temp_page,
+                      'nums': nums,
+                      'temp_list': temp_list})
 
 
 def show_temp_record(request, temp_record_id):
     temp_record = TempRecords.objects.get(pk=temp_record_id)
-    return render(request, 'roseleaf_app/show_temp_record.html', {'temp_record' : temp_record})
+    return render(request, 'roseleaf_app/show_temp_record.html', {'temp_record': temp_record})
 
 
 def delete_temp_record(request, temp_record_id):
@@ -206,7 +220,7 @@ def new_supplier(request):
     form = SupplierForm
     return render(request, 'roseleaf_app/new_supplier.html', {'form': form,
                                                               'submitted': submitted,
-                                                              'suppliers_list' : suppliers_list})
+                                                              'suppliers_list': suppliers_list})
 
 
 def delete_supplier(request, supplier_id):
@@ -225,21 +239,22 @@ def orders(request):
     nums = 'a' * orders_page.paginator.num_pages
 
     return render(request, 'roseleaf_app/orders.html',
-                  {'orders_list' : orders_list,
-                   'orders_page' : orders_page,
+                  {'orders_list': orders_list,
+                   'orders_page': orders_page,
                    'nums': nums})
 
 
 def show_order(request, order_id):
     order = Order.objects.get(pk=order_id)
-    return render(request, 'roseleaf_app/show_order.html', {'order' : order})
+    return render(request, 'roseleaf_app/show_order.html', {'order': order})
 
 
 def search_orders(request):
     searched = request.POST.get('searched')
-    order_searched =   (Order.objects.filter(order_detail__product__name__contains=searched) | Order.objects.filter(user__username__icontains=searched)).distinct()
+    order_searched = (Order.objects.filter(order_detail__product__name__contains=searched) | Order.objects.filter(
+        user__username__icontains=searched)).distinct()
 
-    return render(request, 'roseleaf_app/search_orders.html', {'searched' : searched, 'order_searched' : order_searched})
+    return render(request, 'roseleaf_app/search_orders.html', {'searched': searched, 'order_searched': order_searched})
 
 
 def delete_order(request, order_id):
@@ -278,4 +293,3 @@ def new_order_detail(request):
 
     form = OrderDetailForm
     return render(request, 'roseleaf_app/new_order_detail.html', {'form': form, 'submitted': submitted})
-
